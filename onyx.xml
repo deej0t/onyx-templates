@@ -22,7 +22,7 @@
     Requires: NVIDIA GPU (CUDA), License Key from onyx-pro.de.
   </Overview>
   <Category>Productivity: MediaApp:Video</Category>
-  <Icon>https://onyx-pro.de/static/onyx-icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/deej0t/onyx-templates/main/onyx-icon.png</Icon>
   <ExtraSearchTerms>twitch vod highlight clip gaming ai whisper yolo battlefield bf6 cs2 apex streamer</ExtraSearchTerms>
   <Requires>NVIDIA GPU with CUDA support. License Key required (onyx-pro.de).</Requires>
   <Beta>false</Beta>
@@ -30,6 +30,8 @@
   <!-- ── Web UI ────────────────────────────────────────────── -->
   <WebUI>http://[IP]:[PORT:7860]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/deej0t/onyx-templates/main/onyx.xml</TemplateURL>
+  <DonateLink>https://onyx-pro.de</DonateLink>
+  <DonateText>Get a License Key</DonateText>
 
   <!-- ── GPU ───────────────────────────────────────────────── -->
   <ExtraParams>--gpus all --shm-size=4gb --ulimit memlock=-1 --ulimit stack=67108864 --memory=16g --restart=on-failure:3</ExtraParams>
