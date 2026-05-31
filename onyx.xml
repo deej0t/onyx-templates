@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<Container version="2">
+
+  <!-- ── Identity ─────────────────────────────────────────── -->
+  <Name>ONYX</Name>
+  <Repository>ghcr.io/deej0t/onyx:latest</Repository>
+  <Registry>https://github.com/deej0t/onyx/pkgs/container/onyx</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+
+  <!-- ── Links ────────────────────────────────────────────── -->
+  <Project>https://onyx-pro.de</Project>
+  <Support>https://onyx-pro.de</Support>
+  <ReadMe>https://onyx-pro.de</ReadMe>
+
+  <!-- ── Presentation ─────────────────────────────────────── -->
+  <Overview>
+    ONYX — AI-powered Twitch VOD Highlight Analyzer. Automatically downloads Twitch VODs, detects kills, deaths and multikills using YOLO + Whisper AI, and cuts highlight clips — fully automated. Supports BF6, CS2, Apex Legends, Fortnite and more via customizable game profiles.
+
+    Features: Zero-Touch Pipeline (Download → Analyze → Cut → Compile → YouTube Upload → Notify), real-time event detection (YOLO v8 + OCR + Whisper audio), Discord/Telegram notifications, YouTube auto-upload, clip browser with timeline, A/B clip comparison, compilation branding, and a license-based SaaS model.
+
+    Requires: NVIDIA GPU (CUDA), License Key from onyx-pro.de.
+  </Overview>
+  <Category>Productivity: MediaApp:Video</Category>
+  <Icon>https://onyx-pro.de/static/onyx-icon.png</Icon>
+  <ExtraSearchTerms>twitch vod highlight clip gaming ai whisper yolo battlefield bf6 cs2 apex streamer</ExtraSearchTerms>
+  <Requires>NVIDIA GPU with CUDA support. License Key required (onyx-pro.de).</Requires>
+  <Beta>false</Beta>
+
+  <!-- ── Web UI ────────────────────────────────────────────── -->
+  <WebUI>http://[IP]:[PORT:7860]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/deej0t/onyx-templates/main/onyx.xml</TemplateURL>
+
+  <!-- ── GPU ───────────────────────────────────────────────── -->
+  <ExtraParams>--gpus all --shm-size=4gb --ulimit memlock=-1 --ulimit stack=67108864 --memory=16g --restart=on-failure:3</ExtraParams>
+
+  <!-- ── Ports ─────────────────────────────────────────────── -->
+  <Config Name="Web UI Port"
+          Target="7860"
+          Default="7860"
+          Mode="tcp"
+          Description="Port for the ONYX web interface."
+          Type="Port"
+          Display="always"
+          Required="true"
+          Mask="false">7860</Config>
+
+  <!-- ── Volumes ───────────────────────────────────────────── -->
+  <Config Name="Highlight Clips Output"
+          Target="/output"
+          Default="/mnt/user/obs-records"
+          Mode="rw"
+          Description="Directory where ONYX saves the cut highlight clips."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/user/obs-records</Config>
+
+  <Config Name="VOD Download Cache"
+          Target="/tmp/vods"
+          Default="/mnt/user/twitch-vods"
+          Mode="rw"
+          Description="Directory for downloaded Twitch VODs. Keep on a fast drive — VODs can be 20–80 GB."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/user/twitch-vods</Config>
+
+  <Config Name="App Data (Database + Settings)"
+          Target="/app/data"
+          Default="/mnt/cache/appdata/onyx/data"
+          Mode="rw"
+          Description="ONYX database, settings and runtime data. Keep on cache drive for speed."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/onyx/data</Config>
+
+  <Config Name="AI Model Cache (Whisper + YOLO)"
+          Target="/app/models"
+          Default="/mnt/cache/appdata/onyx/models"
+          Mode="rw"
+          Description="Whisper and YOLO model files. Persisted between updates (~3–8 GB). Keep on cache drive."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false">/mnt/cache/appdata/onyx/models</Config>
+
+  <!-- ── Environment ───────────────────────────────────────── -->
+  <Config Name="NVIDIA Visible Devices"
+          Target="NVIDIA_VISIBLE_DEVICES"
+          Default="all"
+          Mode=""
+          Description="Which GPUs are visible to the container. Use 'all' or a specific device index like '0'."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false">all</Config>
+
+  <Config Name="Memory Limit"
+          Target="ONYX_MEM_LIMIT"
+          Default="16g"
+          Mode=""
+          Description="RAM cap for ONYX. Whisper + YOLO + video decoding peaks at ~10-12 GB. Use 16g for 32 GB systems, 20g for 64 GB+, 10g for 16 GB."
+          Type="Variable"
+          Display="always"
+          Required="false"
+          Mask="false">16g</Config>
+
+  <Config Name="Timezone"
+          Target="TZ"
+          Default="Europe/Berlin"
+          Mode=""
+          Description="Container timezone. Used for scheduled VOD downloads and log timestamps."
+          Type="Variable"
+          Display="always"
+          Required="false"
+          Mask="false">Europe/Berlin</Config>
+
+  <Config Name="License Server URL"
+          Target="ONYX_LICENSE_SERVER"
+          Default="https://onyx-pro.de"
+          Mode=""
+          Description="License validation server. Do not change unless self-hosting a custom license server."
+          Type="Variable"
+          Display="advanced"
+          Required="false"
+          Mask="false">https://onyx-pro.de</Config>
+
+  <Config Name="CUDA Memory Tuning"
+          Target="PYTORCH_CUDA_ALLOC_CONF"
+          Default="max_split_size_mb:512"
+          Mode=""
+          Description="Prevents VRAM fragmentation during long VOD analysis. Lower to max_split_size_mb:256 on GPUs with less than 8 GB VRAM."
+          Type="Variable"
+          Display="advanced"
+          Required="false"
+          Mask="false">max_split_size_mb:512</Config>
+
+  <Config Name="NVIDIA Driver Capabilities"
+          Target="NVIDIA_DRIVER_CAPABILITIES"
+          Default="compute,utility,video"
+          Mode=""
+          Description="NVIDIA capabilities passed to the container. Do not change."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="false"
+          Mask="false">compute,utility,video</Config>
+
+  <Config Name="glibc Malloc Trim Threshold"
+          Target="MALLOC_TRIM_THRESHOLD_"
+          Default="65536"
+          Mode=""
+          Description="Aggressive heap return after Whisper/YOLO peak — frees RAM back to OS immediately."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="false"
+          Mask="false">65536</Config>
+
+  <Config Name="glibc Malloc mmap Threshold"
+          Target="MALLOC_MMAP_THRESHOLD_"
+          Default="65536"
+          Mode=""
+          Description="Large allocations via mmap so they are immediately freed after use."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="false"
+          Mask="false">65536</Config>
+
+  <Config Name="Flask Environment"
+          Target="FLASK_ENV"
+          Default="production"
+          Mode=""
+          Description="Flask runtime mode."
+          Type="Variable"
+          Display="advanced-hide"
+          Required="false"
+          Mask="false">production</Config>
+
+</Container>
