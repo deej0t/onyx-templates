@@ -120,15 +120,6 @@
           Required="false"
           Mask="false">Europe/Berlin</Config>
 
-  <Config Name="License Server URL"
-          Target="ONYX_LICENSE_SERVER"
-          Default="https://onyx-pro.de"
-          Mode=""
-          Description="License validation server. Do not change unless self-hosting a custom license server."
-          Type="Variable"
-          Display="advanced"
-          Required="false"
-          Mask="false">https://onyx-pro.de</Config>
 
   <Config Name="CUDA Memory Tuning"
           Target="PYTORCH_CUDA_ALLOC_CONF"
