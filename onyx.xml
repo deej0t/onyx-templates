@@ -7,7 +7,7 @@
   <Registry>https://github.com/deej0t/onyx/pkgs/container/onyx</Registry>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
-  <Version>3.26.0</Version>
+  <Version>3.31.0</Version>
 
   <!-- ── Links ────────────────────────────────────────────── -->
   <Project>https://onyx-pro.de</Project>
@@ -16,15 +16,16 @@
 
   <!-- ── Presentation ─────────────────────────────────────── -->
   <Overview>
-    ONYX — AI-powered Twitch VOD Highlight Analyzer. Automatically downloads Twitch VODs, detects kills, deaths and multikills using YOLO + Whisper AI, and cuts highlight clips — fully automated. Supports BF6, CS2, Apex Legends, Fortnite and more via customizable game profiles.
+    ONYX — AI-powered Twitch VOD Highlight Analyzer. Automatically downloads Twitch VODs, detects kills, deaths and multikills using YOLO11 computer vision + Whisper AI, and cuts highlight clips — fully automated. Supports Battlefield 6, CS2, Apex Legends, Fortnite, Valorant, Warzone, PUBG, Overwatch 2 and more via customizable game profiles.
 
-    Features: Zero-Touch Pipeline (Download → Analyze → Cut → Compile → YouTube Upload → Notify), real-time event detection (YOLO v8 + OCR + Whisper audio), Discord/Telegram notifications, YouTube auto-upload, clip browser with timeline, A/B clip comparison, compilation branding, and a license-based SaaS model.
+    Features: Zero-Touch Pipeline (Download → Analyze → Cut → Compile → YouTube Upload → Notify), real-time event detection (YOLO11 fine-tuned + OCR + Whisper audio transcription), Discord/Telegram notifications, YouTube auto-upload (OAuth2), clip browser with timeline, A/B clip comparison, n8n/webhook integration, watermark + intro/outro branding, and a license-based SaaS model.
 
-    Requires: NVIDIA GPU (CUDA), License Key from onyx-pro.de.
+    Try the demo: use key ONYX-1JL6-Z8W8-96HV on any ONYX instance (read-only showcase).
+    Requires: NVIDIA GPU (CUDA), License Key from onyx-pro.de (from €9.99/month).
   </Overview>
   <Category>Productivity: MediaApp:Video</Category>
   <Icon>https://raw.githubusercontent.com/deej0t/onyx-templates/main/onyx-icon.png</Icon>
-  <ExtraSearchTerms>twitch vod highlight clip gaming ai whisper yolo battlefield bf6 cs2 apex streamer</ExtraSearchTerms>
+  <ExtraSearchTerms>twitch vod highlight clip gaming ai whisper yolo11 battlefield bf6 cs2 apex valorant fortnite warzone streamer automation</ExtraSearchTerms>
   <Requires>NVIDIA GPU with CUDA support. License Key required (onyx-pro.de).</Requires>
   <Beta>false</Beta>
 
