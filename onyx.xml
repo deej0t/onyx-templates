@@ -7,7 +7,7 @@
   <Registry>https://github.com/deej0t/onyx/pkgs/container/onyx</Registry>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
-  <Version>4.91.1</Version>
+  <Version>4.91.2</Version>
 
   <!-- ── Links ────────────────────────────────────────────── -->
   <Project>https://onyx-pro.de</Project>
